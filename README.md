@@ -2,55 +2,204 @@
 
 ## Overview
 
-This repository implements a structure-informed computational framework for prioritising PTEN residues that may merit downstream investigation in the context of lipid electrophile-associated oxidative stress and PI3K/Akt tumour-signalling biology.
+This repository contains a structure-informed residue prioritisation workflow centred on PTEN, a tumour suppressor and negative regulator of PI3K/Akt signalling.
 
-The project is designed to support a disciplined computational entry point into the question:
+The project is built around a specific computational question:
 
-> Which PTEN residues combine structural exposure, residue chemistry, and functional conservation features that make them rational candidates for downstream experimental evaluation under lipid electrophile-associated oxidative stress?
+> Which PTEN residues combine structural exposure, residue chemistry, conservation, and functional-region context in a way that makes them reasonable candidates for follow-up analysis under lipid electrophile-associated oxidative stress?
 
-## Biological Context
+The workflow ranks selected PTEN residues using transparent proxy features and places the output in the biological context of PTEN-regulated PI3K/Akt signalling.
 
-PTEN is a tumour suppressor and negative regulator of PI3K/Akt signalling. Oxidative stress and lipid peroxidation can generate reactive lipid electrophiles such as 4-HNE and MDA, which may modify nucleophilic protein residues under appropriate biochemical conditions.
+This is not a docking project and does not attempt to model electrophile binding.
 
-This project focuses on PTEN because perturbation of PTEN function can alter PI3K/Akt pathway regulation, a central axis in tumour biology.
+## Biological Rationale
 
-## Scientific Positioning
+Oxidative stress can promote lipid peroxidation and generate electrophilic lipid-derived aldehydes such as 4-HNE and MDA. These species can modify nucleophilic amino acid side chains under suitable biochemical conditions.
 
-This repository does **not** claim to demonstrate electrophile-mediated PTEN modification.
+PTEN is relevant in this context because perturbation of PTEN activity can affect PI3K/Akt signalling, a major growth, survival, and tumour-associated signalling axis.
 
-Instead, it provides a reproducible residue-prioritisation framework using interpretable proxy features:
+A residue-level prioritisation workflow can help define which PTEN sites should be examined more closely in future structural, proteomic, biochemical, or cell-based experiments.
+
+## Methodological Scope
+
+This repository performs structure-informed prioritisation, not biochemical validation.
+
+The current prioritisation score combines:
 
 - relative solvent accessibility
-
 - conservation score
-
 - residue-class weighting
-
 - PTEN functional-region annotation
-
 - PI3K/Akt pathway context
 
-The output should be interpreted as a hypothesis-prioritisation signal, not as direct biochemical evidence.
+The output is a ranked list of PTEN residues for follow-up investigation. It should not be interpreted as evidence that a residue is electrophile-modified, redox-reactive, functionally inhibited, or causally linked to PI3K/Akt activation.
 
-## Why This Project Avoids Classical Docking
+## Why Classical Docking Is Not Used
 
-Classical molecular docking is not used because lipid electrophiles such as 4-HNE and MDA can form covalent adducts through reaction chemistry that is not captured by standard reversible non-covalent docking scores.
+Standard molecular docking is not appropriate for the central question addressed here.
 
-This project therefore avoids claims about:
+Lipid electrophile modification is a covalent, chemistry-dependent process. Reversible non-covalent docking scores do not model adduct formation, reaction kinetics, residue nucleophilicity, or electrophile-specific chemistry.
 
-- binding affinity
+For that reason, this repository does not report:
 
 - docking poses
+- binding affinities
+- covalent adduct geometries
+- electrophile-protein interaction models
 
-- covalent adduct geometry
-
-- electrophile-protein interaction mechanisms
-
-Instead, it uses structure-informed residue features to prioritise PTEN sites for future experimental or higher-resolution computational investigation.
+The analysis is limited to interpretable residue-level prioritisation.
 
 A detailed evidence-boundary statement is provided in:
 
 ```text
+docs/methodological_boundaries.md
+```
 
-docs/methodological\_boundaries.md
+## Analytical Workflow
 
+1. Prepare PTEN residue-level feature input
+2. Validate and process structural-proxy features
+3. Assign conservative residue-class weights
+4. Compute a structure-informed prioritisation score
+5. Generate residue-ranking and feature-profile visualisations
+6. Contextualise PTEN within the PI3K/Akt tumour-signalling axis
+
+## Repository Layout
+
+| Path | Purpose |
+|---|---|
+| `data/raw/` | Input tables for PTEN residue features and PI3K/Akt pathway context |
+| `data/processed/` | Processed PTEN feature table generated by the pipeline |
+| `results/tables/` | Residue prioritisation score output |
+| `results/figures/` | Visual summaries of PTEN residue scores and feature profiles |
+| `src/feature_engineering/` | Feature validation and preparation scripts |
+| `src/scoring/` | Residue prioritisation score calculation |
+| `src/visualization/` | Figure-generation scripts |
+| `environment/` | Conda and pip environment specifications |
+| `docs/` | Methodological boundary documentation |
+| `run_pipeline.sh` | One-command pipeline runner |
+
+## Inputs
+
+### PTEN residue feature table
+
+```text
+data/raw/pten_residue_features_example.csv
+```
+
+This table contains selected PTEN residues with residue identity, relative solvent accessibility, conservation score, functional-region annotation, and residue-level context.
+
+The current input is an example feature table for demonstrating the workflow. It is not presented as a complete experimentally validated redox-site catalogue.
+
+### PI3K/Akt pathway context table
+
+```text
+data/raw/pi3k_akt_axis_context.csv
+```
+
+This table records the biological role of PTEN and selected PI3K/Akt pathway components, including PI3K, AKT, PDK1, and mTOR.
+
+## Scoring Strategy
+
+The prioritisation score is deliberately simple and interpretable:
+
+```text
+priority score =
+0.40 × relative solvent accessibility
++ 0.35 × conservation score
++ 0.25 × residue-class weight
+```
+
+### Feature rationale
+
+| Feature | Interpretation |
+|---|---|
+| Relative solvent accessibility | Proxy for structural exposure |
+| Conservation score | Proxy for functional constraint |
+| Residue-class weight | Conservative weighting of residue chemistry |
+| Functional-region annotation | Biological context within PTEN |
+| PI3K/Akt context | Pathway-level relevance |
+
+Cysteine receives the highest residue-class weight because thiol chemistry is central to many redox-sensitive mechanisms. Histidine and lysine are retained as context-dependent residues relevant to lipid electrophile-associated modification but are not treated as equivalent to cysteine.
+
+## Outputs
+
+### Tables
+
+| File | Description |
+|---|---|
+| `data/processed/pten_prepared_features.csv` | Cleaned PTEN residue feature table with residue-class weights |
+| `results/tables/pten_residue_susceptibility_scores.csv` | Ranked PTEN residue prioritisation scores |
+
+### Figures
+
+| File | Description |
+|---|---|
+| `results/figures/pten_residue_priority_scores.png` | Ranked PTEN residue prioritisation scores |
+| `results/figures/pten_feature_profiles.png` | Feature profiles for ranked PTEN residues |
+
+## Usage
+
+Create the Conda environment:
+
+```bash
+conda env create -f environment/environment.yml
+```
+
+Activate the environment:
+
+```bash
+conda activate pten-redox-structure
+```
+
+Run the full pipeline:
+
+```bash
+./run_pipeline.sh
+```
+
+Alternatively, run each script manually:
+
+```bash
+python src/feature_engineering/01_prepare_pten_features.py
+python src/scoring/02_score_electrophile_sensitive_residues.py
+python src/visualization/03_visualize_pten_scores.py
+```
+
+## Interpretation and Evidence Boundary
+
+The prioritisation score is intended to identify PTEN residues that combine interpretable structural and biological proxy features.
+
+The strongest defensible interpretation is:
+
+> Higher-ranked PTEN residues are candidates for downstream experimental or higher-resolution computational evaluation under lipid electrophile-associated oxidative stress.
+
+The output does not prove that a residue is:
+
+- electrophile-modified
+- oxidized
+- redox-reactive
+- functionally inhibited
+- causally involved in PI3K/Akt pathway activation
+
+Claims about actual PTEN modification, PI3K/Akt signalling consequences, or tumour-cell causal effects require orthogonal validation, including redox proteomics, targeted mass spectrometry, mutagenesis, PTEN activity assays, controlled electrophile exposure experiments, and signalling readouts.
+
+## Current Scope
+
+This is a v1 analytical framework using transparent example inputs.
+
+The current version establishes:
+
+- a reproducible Python workflow
+- PTEN-centred residue prioritisation
+- PI3K/Akt tumour-signalling context
+- explicit methodological limits
+- no unsupported docking or binding claims
+
+Future versions can extend the workflow with experimentally derived redox-proteomics evidence, AlphaFold/PDB-derived solvent accessibility calculations, broader PI3K/Akt pathway node analysis, and tumour-cell signalling datasets.
+
+## Intended Use
+
+This repository is intended as a disciplined computational foundation for investigating PTEN residue-level vulnerability under lipid electrophile-associated oxidative stress.
+
+It is designed to support rational experimental prioritisation, not to replace biochemical or cellular validation.
