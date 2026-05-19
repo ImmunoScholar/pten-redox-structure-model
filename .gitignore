@@ -24,8 +24,8 @@ Thumbs.db
 tmp/
 temp/
 # Generated figures
-results/figures/*.png
-results/figures/*.pdf
+# results/figures/*.png
+# results/figures/*.pdf
 # Structural outputs
 *.pse
 *.session

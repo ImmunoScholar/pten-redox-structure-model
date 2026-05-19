@@ -1,0 +1,6 @@
+gene,protein,pathway_role,tumour_biology_context
+PTEN,PTEN,negative regulator of PI3K/Akt signalling,tumour suppressor frequently altered in cancer
+PIK3CA,PI3K catalytic subunit alpha,PI3K pathway activation node,oncogenic activation can enhance PI3K/Akt signalling
+AKT1,AKT serine/threonine kinase 1,downstream kinase effector,central mediator of survival and growth signalling
+PDPK1,PDK1,AKT activation kinase,phosphorylates and activates AKT signalling components
+MTOR,mTOR,downstream signalling hub,regulates growth metabolism and survival programmes
