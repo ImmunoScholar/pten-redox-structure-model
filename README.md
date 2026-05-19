@@ -44,7 +44,7 @@ Feature provenance and interpretation limits are documented in:
 metadata/feature_sources.md
 ```
 
-The current repository does not include a downloaded PDB or AlphaFold PTEN structure file. The structural-input status is documented in:
+The repository now includes an AlphaFold PTEN mmCIF structure model used for the structure-derived feature workflow. The structural-input status is documented in:
 
 ```text
 data/structures/README.md
@@ -144,15 +144,17 @@ Cysteine receives the highest residue-class weight because thiol chemistry is ce
 
 | File | Description |
 |---|---|
-| `data/processed/pten_prepared_features.csv` | Cleaned PTEN residue feature table with residue-class weights |
-| `results/tables/pten_residue_susceptibility_scores.csv` | Ranked PTEN residue prioritisation scores |
+| `data/processed/pten_prepared_features.csv` | Cleaned example PTEN residue feature table with residue-class weights |
+| `results/tables/pten_residue_susceptibility_scores.csv` | Ranked prioritisation scores from the example proxy-feature workflow |
+| `data/processed/pten_alphafold_structure_features.csv` | PTEN residue-level features derived from the AlphaFold predicted structure model, including SASA and pLDDT |
+| `results/tables/pten_alphafold_residue_priority_scores.csv` | Ranked Cys/Lys/His residue prioritisation scores derived from AlphaFold model-based structural features |
 
 ### Figures
 
 | File | Description |
 |---|---|
-| `results/figures/pten_residue_priority_scores.png` | Ranked PTEN residue prioritisation scores |
-| `results/figures/pten_feature_profiles.png` | Feature profiles for ranked PTEN residues |
+| `results/figures/pten_residue_priority_scores.png` | Ranked PTEN residue prioritisation scores from the example proxy-feature workflow |
+| `results/figures/pten_feature_profiles.png` | Feature profiles for ranked PTEN residues from the example proxy-feature workflow |
 
 ## Usage
 
@@ -174,17 +176,18 @@ Run the full pipeline:
 ./run_pipeline.sh
 ```
 
-Alternatively, run each script manually:
+This executes both workflows:
 
-```bash
-python src/feature_engineering/01_prepare_pten_features.py
-python src/scoring/02_score_electrophile_sensitive_residues.py
-python src/visualization/03_visualize_pten_scores.py
-```
+1. example proxy-feature preparation, scoring, and visualisation
+2. AlphaFold PTEN mmCIF download
+3. AlphaFold-derived structure-feature extraction
+4. AlphaFold-derived Cys/Lys/His residue prioritisation
+
+Individual scripts are available in `src/` for stepwise inspection.
 
 ## Interpretation and Evidence Boundary
 
-The prioritisation score is intended to identify PTEN residues that combine interpretable structural and biological proxy features.
+The prioritisation scores are intended to rank PTEN residues using either example proxy features or AlphaFold-derived model-based structural features.
 
 The strongest defensible interpretation is:
 
@@ -248,4 +251,4 @@ It is not sufficient for claiming actual PTEN electrophile modification, residue
 
 ## Required upgrade for stronger biological claims
 
-For stronger claims, the current example features should be replaced or supplemented with explicitly sourced or computed values, such as solvent accessibility calculated from a defined PDB or AlphaFold PTEN structure, conservation scores generated from a documented multiple-sequence alignment, experimentally observed redox or electrophile-modified residues from curated redox-proteomics datasets, and PTEN functional annotations linked to primary literature or curated databases.
+For stronger biological claims, the current AlphaFold-derived structure-feature workflow should be supplemented with experimentally determined PTEN structures where appropriate, conservation scores generated from documented multiple-sequence alignments, experimentally observed redox or electrophile-modified residues from curated redox-proteomics datasets, and PTEN functional annotations linked to primary literature or curated databases.
