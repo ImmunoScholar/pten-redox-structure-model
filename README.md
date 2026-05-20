@@ -87,21 +87,19 @@ docs/pten_pi3kakt_rationale.md
 
 ## Repository Layout
 
-| Path | Purpose |
-|---|---|
-| `data/raw/` | Input tables for the example PTEN residue workflow and PI3K/Akt pathway context |
-| `data/processed/` | Processed PTEN feature tables from the example and AlphaFold-derived workflows |
-| `results/tables/` | Residue prioritisation score outputs from example and AlphaFold-derived workflows |
-| `results/figures/` | Visual summaries of PTEN residue scores and feature profiles |
-| `src/feature_engineering/` | Feature validation and preparation scripts |
-| `src/scoring/` | Residue prioritisation score calculation |
-| `src/visualization/` | Figure-generation scripts |
-| `src/structure_processing/` | AlphaFold structure download and structure-derived feature extraction scripts |
-| `data/structures/` | AlphaFold PTEN mmCIF structure model and structural-data status documentation |
-| `metadata/` | Feature provenance documentation |
-| `environment/` | Conda and pip environment specifications |
-| `docs/` | Methodological boundary documentation and PTEN-PI3K/Akt biological rationale |
-| `run_pipeline.sh` | One-command pipeline runner |
+- `data/raw/` — Input tables for the example PTEN residue workflow and PI3K/Akt pathway context.
+- `data/processed/` — Processed PTEN feature tables from the example and AlphaFold-derived workflows.
+- `results/tables/` — Residue prioritisation score outputs from example and AlphaFold-derived workflows.
+- `results/figures/` — Visual summaries of PTEN residue scores and feature profiles.
+- `src/feature_engineering/` — Feature validation and preparation scripts.
+- `src/scoring/` — Residue prioritisation score calculation.
+- `src/visualization/` — Figure-generation scripts.
+- `src/structure_processing/` — AlphaFold structure download and structure-derived feature extraction scripts.
+- `data/structures/` — AlphaFold PTEN mmCIF structure model and structural-data status documentation.
+- `metadata/` — Feature provenance documentation.
+- `environment/` — Conda and pip environment specifications.
+- `docs/` — Methodological boundary documentation and PTEN-PI3K/Akt biological rationale.
+- `run_pipeline.sh` — One-command pipeline runner.
 
 ## Inputs
 
@@ -136,13 +134,11 @@ priority score =
 
 ### Feature rationale
 
-| Feature | Interpretation |
-|---|---|
-| Relative solvent accessibility | Proxy for structural exposure |
-| Conservation score | Proxy for functional constraint |
-| Residue-class weight | Conservative weighting of residue chemistry |
-| Functional-region annotation | Biological context within PTEN |
-| PI3K/Akt context | Pathway-level relevance |
+- Relative solvent accessibility — Proxy for structural exposure in the example workflow.
+- Conservation score — Proxy for functional constraint in the example workflow.
+- Residue-class weight — Conservative weighting of residue chemistry.
+- Functional-region annotation — Biological context within PTEN.
+- PI3K/Akt context — Pathway-level relevance.
 
 Cysteine receives the highest residue-class weight because thiol chemistry is central to many redox-sensitive mechanisms. Histidine and lysine are retained as context-dependent residues relevant to lipid electrophile-associated modification but are not treated as equivalent to cysteine.
 
@@ -152,19 +148,15 @@ The AlphaFold-derived workflow uses a separate model-based prioritisation score 
 
 ### Tables
 
-| File | Description |
-|---|---|
-| `data/processed/pten_prepared_features.csv` | Cleaned example PTEN residue feature table with residue-class weights |
-| `results/tables/pten_residue_susceptibility_scores.csv` | Ranked prioritisation scores from the example proxy-feature workflow |
-| `data/processed/pten_alphafold_structure_features.csv` | PTEN residue-level features derived from the AlphaFold predicted structure model, including SASA and pLDDT |
-| `results/tables/pten_alphafold_residue_priority_scores.csv` | Ranked Cys/Lys/His residue prioritisation scores derived from AlphaFold model-based structural features |
+- `data/processed/pten_prepared_features.csv` — Cleaned example PTEN residue feature table with residue-class weights.
+- `results/tables/pten_residue_susceptibility_scores.csv` — Ranked prioritisation scores from the example proxy-feature workflow.
+- `data/processed/pten_alphafold_structure_features.csv` — PTEN residue-level features derived from the AlphaFold predicted structure model, including SASA and pLDDT.
+- `results/tables/pten_alphafold_residue_priority_scores.csv` — Ranked Cys/Lys/His residue prioritisation scores derived from AlphaFold model-based structural features.
 
 ### Figures
 
-| File | Description |
-|---|---|
-| `results/figures/pten_residue_priority_scores.png` | Ranked PTEN residue prioritisation scores from the example proxy-feature workflow |
-| `results/figures/pten_feature_profiles.png` | Feature profiles for ranked PTEN residues from the example proxy-feature workflow |
+- `results/figures/pten_residue_priority_scores.png` — Ranked PTEN residue prioritisation scores from the example proxy-feature workflow.
+- `results/figures/pten_feature_profiles.png` — Feature profiles for ranked PTEN residues from the example proxy-feature workflow.
 
 ## Usage
 
