@@ -69,10 +69,11 @@ For that reason, this repository does not report:
 
 The analysis is limited to interpretable residue-level prioritisation.
 
-A detailed evidence-boundary statement is provided in:
+Detailed evidence-boundary and biological-rationale statements are provided in:
 
 ```text
 docs/methodological_boundaries.md
+docs/pten_pi3kakt_rationale.md
 ```
 
 ## Analytical Workflow
@@ -99,7 +100,7 @@ docs/methodological_boundaries.md
 | `data/structures/` | AlphaFold PTEN mmCIF structure model and structural-data status documentation |
 | `metadata/` | Feature provenance documentation |
 | `environment/` | Conda and pip environment specifications |
-| `docs/` | Methodological boundary documentation |
+| `docs/` | Methodological boundary documentation and PTEN-PI3K/Akt biological rationale |
 | `run_pipeline.sh` | One-command pipeline runner |
 
 ## Inputs
